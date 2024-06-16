@@ -1,9 +1,16 @@
 import googlemaps
 import requests
+import os
+from dotenv import load_dotenv
 from datetime import datetime
 
+load_dotenv()
+
+google_maps_api_key = os.getenv('GOOGLE_MAPS_API_KEY')
+openweathermap_api_key = os.getenv('OPENWEATHERMAP_API_KEY')
+
 # Use my own API key from Google Cloud Console
-gmaps = googlemaps.Client(key = 'AIzaSyCtSI4crkEMG7oqly1D_Sqk8EjUaa-RlQ4')
+gmaps = googlemaps.Client(key = google_maps_api_key)
 
 location = input("Please enter the name of the location for which you would like to retrieve the weather:")
 
@@ -19,7 +26,7 @@ else:
     print(f"Coordinates of {location}: Latitude: {lat}, Longitude {long}")
     
 # Weather API key from OpenWeatherMap.org
-weather_api_key = "4c8510f0473cb053d8a235c5aea9974c"
+weather_api_key = openweathermap_api_key
 weather_url = f'http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={long}&appid={weather_api_key}&units=metric'
 
 # Fetch the weather data
